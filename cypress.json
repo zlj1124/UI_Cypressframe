@@ -1,1 +1,10 @@
-{}
+{
+    "baseUrl": "http://192.168.3.21:18093/",
+
+    "viewportWidth": 1740,
+    "viewportHeight": 787,
+      
+    "env":{
+        "api_server": "http://192.168.3.21:30236/auth/login/"
+    }
+  }

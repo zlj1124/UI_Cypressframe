@@ -1,5 +1,12 @@
 {
-    "scripts": {
-      "cypress:open": "cypress open"
-    }
+  "scripts": {
+    "cypress:open": "cypress open"
+  },
+  "dependencies": {
+    "cypress": "^4.7.0",
+    "cypress-file-upload": "^4.0.7"
+  },
+  "devDependencies": {
+    "cypress-xpath": "^1.6.0"
   }
+}

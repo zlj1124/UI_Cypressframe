@@ -4,6 +4,7 @@
  * @Date: 2020-05-27 16:24:32
  */
 let loginLocators = require('../pageLocators/loginPageLocators');
+let Data = require("../../action/testData/data");//testdata
 
 module.exports = {
 	openUrl: function (url) {
@@ -18,6 +19,7 @@ module.exports = {
 		cy.get(loginLocators.LOGIN_BUTTON)
 			.click();
 
-	}
+    },
 
 };
+

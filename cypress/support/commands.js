@@ -1,3 +1,9 @@
+/*
+ * @Descripttion: 
+ * @Author: zlj
+ * @Date: 2020-05-27 16:05:15
+ */
+
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
@@ -23,3 +29,39 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+import 'cypress-file-upload'
+let Data = require("../../action/testData/data");//testdata
+
+// file-upload
+Cypress.Commands.add('uploadFile', (fileName, fileType, selector, encoding) => {
+    cy.fixture(fileName,encoding).then(fileContent => {
+    
+      cy.get(selector).attachFile(
+        { fileContent, fileName, mimeType: fileType,encoding },
+
+      );
+    });
+  });
+
+
+  //Use login request as a public method
+Cypress.Commands.add('login',(usertype,option={})=>{
+    const accountType={
+        super_admin:{
+            username:Data.USERNAME,
+            password:Data.PASSWORD
+        }
+    }
+    cy.request({
+        url:Cypress.env('api_server'),
+        method:'POST',
+        body:accountType[usertype]
+    }).then((resp)=>{
+         //设置sessionStorage
+        window.sessionStorage.setItem('token',resp.body.token)
+        window.sessionStorage.setItem('profile',resp.body.profile)
+
+    })
+
+})
