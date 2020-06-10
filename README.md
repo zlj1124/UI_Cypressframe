@@ -13,7 +13,9 @@
 3. npm install cypress
 4. npm install cypress-file-upload
 5. npm install -D cypress-xpath
-6. npm run cypress:open
+6. pip install PyMySQL==0.9.3
+7. pip3 install argparse
+8. npm run cypress:open
 
 ## 目录结构
 

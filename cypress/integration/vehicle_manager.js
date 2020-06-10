@@ -10,34 +10,46 @@ let vehicelPageLocators = require("../../action/pageLocators/vehiclePageLocators
 
 describe('vehicle manager page',function(){
     before(function(){
-         //reuqest login
+        //reuqest login
          cy.login('super_admin')
          cy.visit('/car')
          cy.url().should('include','/car')
 
     })
-    
-    it.skip('Verify the search for vin',function(){
+   
+    beforeEach(() => {
+
+        cy.log('runs once after all tests in the block');
+  
+        })
+   
+
+    afterEach(()=>{
+        cy.log("after each")
+
+    })
+ 
+    it('Verify the search for vin',function(){
         //Verify the search for vin
         vehicelPage.search_vin(Data.MONITOR['vin'])
         cy.get(vehicelPageLocators.TRUCK_LIST).should('contain',Data.MONITOR['vin'])
       })
 
-    it.skip('Verify clear vin',function(){
+    it('Verify clear vin',function(){
         //Verify clear vin
         vehicelPage.clear_vin()
         cy.get(vehicelPageLocators.INPUT).should('not.have.text')
 
     })  
        
-    it.skip('Verify import file sucess',function(){
+    it('Verify import file sucess',function(){
         //import file sucess
         vehicelPage.import_file()
         cy.get(vehicelPageLocators.IMPOET_MSG).should('contain','导入成功')
 
     })
 
-    it.skip('Verify create truck success',function(){
+    it('Verify create truck success',function(){
         vehicelPage.create_truck(
             Data.TRUCK['vin'],
             vehicelPageLocators.MODE_SELECT,
@@ -45,6 +57,24 @@ describe('vehicle manager page',function(){
             )
         cy.get(vehicelPageLocators.CREATERUCK_MSG).should('contain.text','新增成功')       
         })
+
+  
+    after(() => {
+        cy.log('runs once after all tests in the block');
+      
+        cy.exec("python3 ./cypress/fixtures/db.py -d d")//调python数据库模块，清除添加的数据
+           .as("get_result")
+           .then(function(result) {
+               cy.log(result.stdout)
+               // json解析成object
+            //    const res_body = JSON.parse(result.stdout)
+            //    //  示例：打印出来
+            //    cy.log(res_body)
+            //    // 断言 返回结果
+            //    expect(res_body.length).to.be.at.least(1)  
+       })
+
+       })  
 
     })
     
